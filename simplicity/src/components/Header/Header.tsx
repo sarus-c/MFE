@@ -1,12 +1,15 @@
-import React, { FC } from "react";
-import { Link, NavLink } from "react-router-dom";
+import React, { FC, useState } from 'react'
+import { Link, NavLink } from 'react-router-dom'
+import './Header.css'
 
-type HeaderProps = {};
+type HeaderProps = {}
 
 const Header: FC<HeaderProps> = () => {
+  const [show, setToggleAbout] = useState(false)
+
   return (
     <header>
-      <div className="collapse bg-dark" id="navbarHeader">
+      <div className={`about bg-dark ${show ? 'show' : ''}`}>
         <div className="container">
           <div className="row">
             <div className="col-sm-8 col-md-7 py-4">
@@ -22,15 +25,20 @@ const Header: FC<HeaderProps> = () => {
               <h4 className="text-white">Menu</h4>
               <nav>
                 <ul className="list-unstyled">
-                  <NavLink to="/" activeClassName="active" className="nav-link">
-                    Home
-                  </NavLink>
-                  <NavLink to="/next" className="nav-link">
-                    Next
-                  </NavLink>
-                  <NavLink to="/contact" className="nav-link">
-                    Contact
-                  </NavLink>
+                  <li>
+                    <NavLink
+                      to="/"
+                      activeClassName="active"
+                      className="text-white"
+                    >
+                      Home
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink to="/bookmarks" className="text-white">
+                      Bookmarks
+                    </NavLink>
+                  </li>
                 </ul>
               </nav>
             </div>
@@ -42,23 +50,28 @@ const Header: FC<HeaderProps> = () => {
           <Link to="/" className="navbar-brand d-flex align-items-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              fill="none"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              aria-hidden="true"
-              className="mr-2"
+              width="24"
+              height="24"
               viewBox="0 0 24 24"
-              focusable="false"
+              fill="#fff"
+              className="mr-2"
             >
-              <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
-              <circle cx="12" cy="13" r="4" />
+              <path d="M6 22v-16h16v7.543c0 4.107-6 2.457-6 2.457s1.518 6-2.638 6h-7.362zm18-7.614v-10.386h-20v20h10.189c3.163 0 9.811-7.223 9.811-9.614zm-10 1.614h-5v-1h5v1zm5-4h-10v1h10v-1zm0-3h-10v1h10v-1zm3-6h-19v19h-1v-20h20v1zm-2-2h-19v19h-1v-20h20v1z" />
             </svg>
-            <strong>Album</strong>
+            <strong>Simplicity</strong>
           </Link>
+          <div className="bookmarks text-white">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="#fff"
+            >
+              <path d="M17 6v13.583l-3-2.634-3 2.634v-13.583h6zm2-2h-10v20l5-4.39 5 4.39v-20zm-2-2h-10v19h1v-18h9v-1zm-2-2h-10v19h1v-18h9v-1z" />
+            </svg>
+            <span>3</span>
+          </div>
           <button
             className="navbar-toggler"
             type="button"
@@ -67,13 +80,14 @@ const Header: FC<HeaderProps> = () => {
             aria-controls="navbarHeader"
             aria-expanded="false"
             aria-label="Toggle navigation"
+            onClick={() => setToggleAbout(!show)}
           >
             <span className="navbar-toggler-icon"></span>
           </button>
         </div>
       </div>
     </header>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header

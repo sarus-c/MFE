@@ -1,10 +1,10 @@
-import React, { FC } from "react";
+import { FC } from "react";
 
-type InfoProps = {};
+type IntroProps = {};
 
-const Info: FC<InfoProps> = () => {
+const Intro: FC<IntroProps> = () => {
   return (
-    <section className="jumbotron text-center bg-white">
+    <section className="jumbotron text-center bg-white mb-0">
       <div className="container">
         <h1>Album example</h1>
         <p className="lead text-muted">
@@ -25,4 +25,4 @@ const Info: FC<InfoProps> = () => {
   );
 };
 
-export default Info;
+export default Intro;
