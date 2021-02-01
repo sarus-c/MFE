@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 
 type FetchProp = {
   url: string;
@@ -6,13 +6,13 @@ type FetchProp = {
 };
 
 type FetchResult = {
-  response: any;
+  data: any;
   error: Error | null;
   loading: boolean;
 };
 
 const useFetch = ({ url, options }: FetchProp): FetchResult => {
-  const [response, setResponse] = useState(null);
+  const [data, setData] = useState(null);
   const [error, setError] = useState<Error | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -26,15 +26,17 @@ const useFetch = ({ url, options }: FetchProp): FetchResult => {
       try {
         const res = await fetch(url, options);
 
-        if(res.status === 200) {
-            const json = await res.json();
-            if (!signal.aborted) {
-              setResponse(json);
-            }
+        if (res.status === 200) {
+          const json = await res.json();
+          if (!signal.aborted) {
+            setData(json);
+          }
         } else {
-            if (!signal.aborted) {
-                setError(new Error(`Something went wrong.Status code: ${res.status}`));
-              }
+          if (!signal.aborted) {
+            setError(
+              new Error(`Something went wrong.Status code: ${res.status}`)
+            );
+          }
         }
       } catch (e) {
         if (!signal.aborted) {
@@ -54,7 +56,7 @@ const useFetch = ({ url, options }: FetchProp): FetchResult => {
     };
   }, [options, url]);
 
-  return { response, error, loading };
+  return { data, error, loading };
 };
 
 export default useFetch;

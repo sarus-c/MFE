@@ -1,10 +1,8 @@
-import { FC } from "react";
-import { scrollTop } from "utils/helpers";
-import "./Footer.css";
+import { FC } from 'react';
+import { scrollTop } from 'utils/helpers';
+import './Footer.css';
 
-type FooterProps = {};
-
-const Footer: FC<FooterProps> = () => (
+const Footer: FC<{}> = () => (
   <footer className="text-muted bg-white py-5">
     <div className="container d-flex">
       <p>&copy; Try something new every day!</p>

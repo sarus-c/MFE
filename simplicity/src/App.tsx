@@ -1,21 +1,19 @@
-import React, { FC, Suspense } from 'react'
-import Spinner from 'components/Spinner'
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import React, { FC, Suspense } from 'react';
+import Spinner from 'components/Spinner';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
-const Home = React.lazy(() => import('./pages/Home'))
+const Home = React.lazy(() => import('./pages/Home'));
+const Article = React.lazy(() => import('./pages/Article'));
 
-type AppProps = {}
-
-const App: FC<AppProps> = () => (
+const App: FC<{}> = () => (
   <Router>
     <Suspense fallback={<Spinner />}>
       <Switch>
-        <Route exact path="/">
-          <Home />
-        </Route>
+        <Route exact path="/" component={Home} />
+        <Route exact path="/:slug" component={Article} />
       </Switch>
     </Suspense>
   </Router>
-)
+);
 
-export default App
+export default App;

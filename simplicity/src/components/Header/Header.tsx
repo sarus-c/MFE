@@ -1,11 +1,11 @@
-import React, { FC, useState } from 'react'
-import { Link, NavLink } from 'react-router-dom'
-import './Header.css'
+import React, { FC, useState } from 'react';
+import { Link, NavLink } from 'react-router-dom';
+import './Header.css';
 
-type HeaderProps = {}
+type HeaderProps = {};
 
 const Header: FC<HeaderProps> = () => {
-  const [show, setToggleAbout] = useState(false)
+  const [show, setToggleAbout] = useState(false);
 
   return (
     <header>
@@ -87,7 +87,7 @@ const Header: FC<HeaderProps> = () => {
         </div>
       </div>
     </header>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

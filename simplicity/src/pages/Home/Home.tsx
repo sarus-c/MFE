@@ -1,20 +1,39 @@
-import React, { FC } from "react";
-import Header from "components/Header";
-import Footer from "components/Footer";
-import List from "components/List";
-import Intro from "components/Intro";
+import React, { FC } from 'react';
+import List from 'components/List';
+import Intro from 'components/Intro';
+import useFetch from 'hooks/useFetch';
+import Spinner from 'components/Spinner';
+import Error from 'components/Error';
+import Full from 'templates/Full';
 
+const Home: FC<{}> = () => {
+  const { data, loading, error } = useFetch({
+    url: 'https://jsonplaceholder.typicode.com/posts',
+  });
 
-type HomeProps = {};
+  const items = Array.isArray(data) ? data.slice(0, 12) : null;
 
-const Home: FC<HomeProps> = () => {
   return (
-    <main role="main" className="bg-light">
-      <Header />
+    <Full>
       <Intro />
-      <List />
-      <Footer />
-    </main>
+      <div className="container py-5 bg-light">
+        <div className="row">
+          {loading && (
+            <div className="col-12">
+              <Spinner />
+            </div>
+          )}
+
+          <List items={items} />
+
+          {error && (
+            <div className="col-12">
+              <Error e={error} />
+            </div>
+          )}
+        </div>
+      </div>
+    </Full>
   );
 };
 
