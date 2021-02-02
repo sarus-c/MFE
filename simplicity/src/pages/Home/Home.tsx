@@ -5,10 +5,11 @@ import useFetch from 'hooks/useFetch';
 import Spinner from 'components/Spinner';
 import Error from 'components/Error';
 import Full from 'templates/Full';
+import Info from 'components/Info';
 
 const Home: FC<{}> = () => {
   const { data, loading, error } = useFetch({
-    url: 'https://jsonplaceholder.typicode.com/posts',
+    url: process.env.REACT_APP_ARTICLES_API_URL || '',
   });
 
   const items = Array.isArray(data) ? data.slice(0, 12) : null;
@@ -24,7 +25,8 @@ const Home: FC<{}> = () => {
             </div>
           )}
 
-          <List items={items} />
+          {items && items.length > 0 && <List items={items} />}
+          {!loading && !error && (!items || items.length < 1) && <div className="col-12"><Info /></div>}
 
           {error && (
             <div className="col-12">

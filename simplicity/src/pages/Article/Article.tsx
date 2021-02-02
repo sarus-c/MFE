@@ -5,15 +5,17 @@ import Card from 'components/Card';
 import Spinner from 'components/Spinner';
 import Error from 'components/Error';
 import Full from 'templates/Full';
+import Info from 'components/Info';
 
-type ArticleProps = {};
 
-const Article: FC<ArticleProps> = () => {
+const Article: FC<{}> = () => {
   let { slug } = useParams<{slug: string}>();
-  const id = slug?.split('-').slice(-1)[0]
+  const id = slug?.split('-').slice(-1)[0];
 
   const { data, loading, error } = useFetch({
-    url: `https://jsonplaceholder.typicode.com/posts/${id}`,
+    url: parseInt(id) > 0 ? `${process.env.REACT_APP_ARTICLES_API_URL}/${id}` : '',
+    options: undefined,
+    redirect: '/not-found'
   });
 
   return (
@@ -21,6 +23,7 @@ const Article: FC<ArticleProps> = () => {
       <div className="container py-5">
         {loading && <Spinner />}
         {data && <Card item={data} detailsMode />}
+        {!loading && !error && !data && <Info />}
         {error && <Error e={error} />}
       </div>
     </Full>

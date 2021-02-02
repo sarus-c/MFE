@@ -9,9 +9,16 @@ export type CardProps = {
 
 const Card: FC<CardProps> = ({ item, detailsMode = false }) => (
   <div className="card mb-4 shadow-sm">
-    <img src={`https://picsum.photos/800/400?random=${item.id}`} alt="random" />
+    <img
+      src={`https://picsum.photos/${detailsMode? '800/400' : '400/200'}?random=${item.id}`}
+      alt="random"
+      className="card-img-top"
+      height={detailsMode? 'auto': '200'}
+    />
     <div className="card-body">
-      <h5 className="card-title">{detailsMode ? item.title : `${item.title.slice(0, 25)}...`}</h5>
+      <h5 className="card-title">
+        {detailsMode ? item.title : `${item.title.slice(0, 25)}...`}
+      </h5>
       <p className="card-text">
         {detailsMode ? item.body : `${item.body.slice(0, 70)}...`}
       </p>
@@ -19,7 +26,7 @@ const Card: FC<CardProps> = ({ item, detailsMode = false }) => (
         <div className="btn-group">
           {!detailsMode && (
             <Link
-              to={`/${slugify(`${item.title}-${item.id}`)}`}
+              to={`/article/${slugify(`${item.title}-${item.id}`)}`}
               className="btn btn-sm btn-outline-info"
             >
               View
