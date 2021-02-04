@@ -1,44 +1,23 @@
-import React, { FC } from 'react';
-import { Link } from 'react-router-dom';
-import { randomDateAfterDate, slugify } from 'utils/helpers';
+import { FC } from 'react';
+import { Article } from 'utils/types';
 
 export type CardProps = {
-  item: any;
-  detailsMode?: boolean;
+  item: Article;
 };
 
-const Card: FC<CardProps> = ({ item, detailsMode = false }) => (
+const Card: FC<CardProps> = ({ item }) => (
   <div className="card mb-4 shadow-sm">
     <img
-      src={`https://picsum.photos/${detailsMode? '800/400' : '400/200'}?random=${item.id}`}
+      src={item.img}
       alt="random"
       className="card-img-top"
-      height={detailsMode? 'auto': '200'}
     />
     <div className="card-body">
-      <h5 className="card-title">
-        {detailsMode ? item.title : `${item.title.slice(0, 25)}...`}
-      </h5>
-      <p className="card-text">
-        {detailsMode ? item.body : `${item.body.slice(0, 70)}...`}
-      </p>
+      <h5 className="card-title">{item.title}</h5>
+      <div className="card-text mb-3">{item.body}</div>
       <div className="d-flex justify-content-between align-items-center">
-        <div className="btn-group">
-          {!detailsMode && (
-            <Link
-              to={`/article/${slugify(`${item.title}-${item.id}`)}`}
-              className="btn btn-sm btn-outline-info"
-            >
-              View
-            </Link>
-          )}
-          <button type="button" className="btn btn-sm btn-outline-info">
-            Bookmark
-          </button>
-        </div>
-        <small className="text-muted">
-          {randomDateAfterDate(new Date(), 100)}
-        </small>
+        {item.action}
+        <small className="text-muted">{item.date}</small>
       </div>
     </div>
   </div>

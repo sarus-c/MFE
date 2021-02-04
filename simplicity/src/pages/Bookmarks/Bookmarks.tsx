@@ -1,4 +1,7 @@
 import React, { FC } from 'react';
+import { Link } from 'react-router-dom';
+import { Article } from 'utils/types';
+import { randomDateAfterDate, slugify } from 'utils/helpers';
 import List from 'components/List';
 import Intro from 'components/Intro';
 import useFetch from 'hooks/useFetch';
@@ -6,11 +9,8 @@ import Spinner from 'components/Spinner';
 import Error from 'components/Error';
 import Full from 'templates/Full';
 import Info from 'components/Info';
-import { Link } from 'react-router-dom';
-import { randomDateAfterDate, slugify } from 'utils/helpers';
-import { Article } from 'utils/types';
 
-const Home: FC<{}> = () => {
+const Bookmarks: FC<{}> = () => {
   const { data, loading, error } = useFetch({
     url: process.env.REACT_APP_ARTICLES_API_URL || '',
   });
@@ -20,7 +20,7 @@ const Home: FC<{}> = () => {
   items?.forEach((x) => {
     articles.push({
       id: x.id,
-      img: `https://picsum.photos/400/250?random=${x.id}`,
+      img: `https://picsum.photos/400/200?random=${x.id}`,
       title: `${x.title.slice(0, 25)}...`,
       body: `${x.body.slice(0, 70)}...`,
       action: (
@@ -44,23 +44,17 @@ const Home: FC<{}> = () => {
   return (
     <Full>
       <Intro>
-        <h1>Random articles</h1>
+        <h1>Your bookmarked articles</h1>
         <p className="lead text-muted">
-          Want to read something and you don't know what? Click "Show me the
-          article!" and I will try to find you one.
-          You didn't find something interesting on this list? Click "Shuffle"
-          and I will bring you new ones.
+          So... this is the list with your preferred articles.<br />
+          If you want to create a fresh one, you know what to do... hit the button below 😁! 
         </p>
         <p>
-          <button type="button" className="btn btn-primary my-2 mr-2">
-            Show me the article!
-          </button>
-          <button type="button" className="btn btn-secondary my-2 mr-2">
-            Shuffle
+          <button type="button" className="btn btn-danger my-2 mr-2">
+            Clear the list!
           </button>
         </p>
       </Intro>
-
       <div className="container py-5 bg-light">
         <div className="row">
           {loading && (
@@ -72,7 +66,7 @@ const Home: FC<{}> = () => {
           {articles.length > 0 && <List items={articles} />}
           {!loading && !error && (articles.length < 1) && (
             <div className="col-12">
-              <Info />
+              <Info title="Yep... is empty" msg="Go on the homepage, find something interesting for you, and bookmark." />
             </div>
           )}
 
@@ -87,4 +81,4 @@ const Home: FC<{}> = () => {
   );
 };
 
-export default Home;
+export default Bookmarks;

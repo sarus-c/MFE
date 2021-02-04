@@ -1,4 +1,4 @@
-export const randomDateAfterDate = (start: Date, days: number): String => {
+export const randomDateAfterDate = (start: Date, days: number): string => {
   const date = new Date(
     start.getTime() + Math.random() * days * 24 * 60 * 60 * 1000
   );
